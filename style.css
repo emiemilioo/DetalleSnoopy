@@ -1,0 +1,187 @@
+/*Animacion y estilos owo*/
+
+
+/* ---------------------------------------------------------------- */
+/* 0. CONFIGURACIÓN GLOBAL Y TIPOGRAFÍA */
+/* ---------------------------------------------------------------- */
+
+/* Variables de Color (Paleta Snoopy adaptada) */
+:root {
+    --color-fondo: #FFFDD0; /* Crema Suave */
+    --color-texto: #4A4A4A; /* Gris Oscuro Suave */
+    --color-acento-rojo: #DC3545; /* Rojo Clásico de Snoopy */
+    --color-acento-amarillo: #FFEB3B; /* Amarillo Suave */
+}
+
+/* Aplicación de las fuentes de Google Fonts */
+.handlee-font { font-family: 'Handlee', cursive; }
+.quicksand-font { font-family: 'Quicksand', sans-serif; }
+
+/* Estilo del Body con la Animación de Fondo */
+body {
+    /* Fondo animado (Gradiente suave) */
+    background: linear-gradient(45deg, var(--color-fondo), #FFEFE0, #FFFACD); 
+    background-size: 400% 400%; 
+    animation: gradientAnimation 15s ease infinite; /* 15s de duración, se repite */
+    
+    color: var(--color-texto);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    text-align: center;
+    overflow: hidden; /* Evita barras de desplazamiento innecesarias */
+}
+
+/* Animación del Fondo */
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Clase de utilidad para ocultar elementos con transición */
+.hidden {
+    display: none !important;
+    opacity: 0;
+}
+
+
+/* ---------------------------------------------------------------- */
+/* 1. PANTALLA DE CARGA */
+/* ---------------------------------------------------------------- */
+
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-fondo);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    z-index: 100;
+    transition: opacity 0.5s ease-out; /* Para el fade-out suave en JS */
+}
+
+.spinner {
+    border: 6px solid #ccc;
+    border-top: 6px solid var(--color-acento-rojo);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin-top: 15px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+/* ---------------------------------------------------------------- */
+/* 2. CONTENIDO PRINCIPAL Y FASE 1 */
+/* ---------------------------------------------------------------- */
+
+#main-content {
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.8s ease-in;
+    max-width: 90%;
+    /* Añadido para centrar bien el contenido interno */
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+}
+
+h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    color: var(--color-acento-rojo); /* El texto inicial en el color de Snoopy */
+}
+
+/* Estilo del GIF, ahora fuera de las fases */
+.snoopy-img {
+    max-width: 250px;
+    height: auto;
+    margin: 30px auto; /* Centrado horizontal */
+    display: block; /* Necesario para margin: auto */
+    /* Transición para el efecto de 'rebote' al cambiar en JS */
+    transition: transform 0.3s ease-out; 
+}
+
+#fase-1, #fase-2 {
+    transition: opacity 0.5s ease-out; /* Para la transición entre fases en JS */
+    width: 100%; /* Asegura que ocupe el ancho completo para el centrado */
+}
+
+/* BOTÓN: Estilo de acento con el color Snoopy */
+#abrir-detalle {
+    background-color: var(--color-acento-rojo);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px var(--color-texto); /* Efecto 3D sutil */
+    transition: transform 0.1s, box-shadow 0.1s, opacity 0.5s;
+    margin-top: 20px;
+}
+
+#abrir-detalle:active {
+    transform: translateY(4px); /* Efecto de 'aplastado' al hacer clic */
+    box-shadow: 0 0 var(--color-texto);
+}
+
+
+/* ---------------------------------------------------------------- */
+/* 3. FASE 2: EL ABRAZO VIRTUAL */
+/* ---------------------------------------------------------------- */
+
+#fase-2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0; /* Oculto y transparente para la animación inicial */
+}
+
+#fase-2.visible {
+    opacity: 1; /* Clase que JS aplicará para mostrar la fase 2 */
+}
+
+.abrazo-text {
+    font-size: 4em;
+    color: var(--color-texto);
+    animation: pulse 1.5s infinite alternate; /* Animación de latido */
+    margin-top: 0;
+    line-height: 1.2;
+}
+
+.dedicatoria {
+    font-size: 1.5em;
+    margin-top: 20px;
+    color: var(--color-acento-rojo); 
+}
+
+/* Keyframes para la animación de 'latido' */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.05); }
+}
+
+/* Media Query para móviles: Ajustes para pantallas pequeñas */
+@media (max-width: 600px) {
+    h1 { font-size: 2.5em; }
+    .abrazo-text { font-size: 3em; }
+    .snoopy-img { max-width: 200px; }
+    #abrir-detalle { font-size: 1em; padding: 12px 25px; }
+}

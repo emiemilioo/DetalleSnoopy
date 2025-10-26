@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Un Detalle de Emilio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Handlee&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+
+    <div id="loading-screen">
+        <p>Cargando sorpresa...</p>
+        <div class="spinner"></div>
+    </div>
+
+    <div id="main-content" class="hidden"> 
+        <img id="snoopy-gif" src="snoopy_espera.gif" alt="Snoopy esperando" class="snoopy-img">
+
+        <div id="fase-1">
+            <h1 class="handlee-font">Un detallito para ti</h1>
+            <button id="abrir-detalle" class="quicksand-font">Aplasta si lo necesitas c:</button>
+        </div>
+
+        <div id="fase-2" class="hidden">
+            <h1 class="handlee-font abrazo-text">¡Te mando un abrazo virtuaaaaal!</h1>
+            <p class="quicksand-font dedicatoria">De Emilio</p>
+        </div>
+
+    </div>
+
+    <audio id="musica-fondo" loop>
+        <source src="musica_fondo.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
