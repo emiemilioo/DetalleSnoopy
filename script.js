@@ -54,7 +54,8 @@ boton.addEventListener('click', () => {
         
         // Paso 2: Cambiar el GIF de Snoopy (fuera de las fases)
         // Reemplazamos el GIF de espera por el GIF de abrazo.
-        snoopyGif.src = 'snoopy_abrazo.gif';
+        const timestamp = new Date().getTime();
+        snoopyGif.src = 'snoopy_abrazo.gif?' + timestamp;
         
         // Efecto de 'rebote' al cambiar el GIF para hacerlo más dinámico
         snoopyGif.style.transform = 'scale(0.8)';
@@ -74,4 +75,5 @@ boton.addEventListener('click', () => {
         });
 
     }, 500); // 500ms para una transición suave
+
 });
