@@ -16,12 +16,12 @@ const snoopyGif = document.getElementById('snoopy-gif');
 // 2. CONTROL DE LA PANTALLA DE CARGA (FLOW INICIAL)
 // ----------------------------------------------------------------
 
-// Temporizador para simular una carga de 2 segundos.
+// Usamos un temporizador para simular una carga de 2 segundos.
 setTimeout(() => {
     // 1. Ocultamos la pantalla de carga haciendo un fade-out suave.
     loadingScreen.style.opacity = '0';
     
-    // Esperamos 500ms (la duración de la transición CSS) para ocultarla totalmente.
+    // Esperamos 500ms para que la transición de opacidad termine.
     setTimeout(() => {
         loadingScreen.style.display = 'none';
         
@@ -35,13 +35,14 @@ setTimeout(() => {
 
 
 // ----------------------------------------------------------------
-// 3. FUNCIÓN DE INTERACCIÓN DEL BOTÓN
+// 3. FUNCIÓN DE INTERACCIÓN DEL BOTÓN (Llamada directamente con 'onclick' en HTML)
 // ----------------------------------------------------------------
 
-// Añadimos un 'listener' al botón para que reaccione al clic.
-boton.addEventListener('click', () => {
+// Nota: Esta función reemplaza al antiguo addEventListener para mayor compatibilidad móvil.
+function iniciarAbrazo() {
     
-    // Deshabilitamos el botón inmediatamente para evitar clics múltiples
+    // Si la función ya se ejecutó, salimos. (Esto es gracias al boton.disabled = true)
+    if (boton.disabled) return;
     boton.disabled = true;
 
     // Paso 1: Ocultar el contenido de la Fase 1 con una transición.
@@ -52,12 +53,12 @@ boton.addEventListener('click', () => {
     setTimeout(() => {
         fase1.style.display = 'none';
         
-        // Paso 2: Cambiar el GIF de Snoopy (fuera de las fases)
-        // Reemplazamos el GIF de espera por el GIF de abrazo.
+        // Paso 2: Cambiar el GIF de Snoopy (con un 'cache buster' para forzar la recarga en móviles)
+        // Esto crea una URL "nueva" para que el navegador no use la versión en caché.
         const timestamp = new Date().getTime();
         snoopyGif.src = 'snoopy_abrazo.gif?' + timestamp;
         
-        // Efecto de 'rebote' al cambiar el GIF para hacerlo más dinámico
+        // Efecto de 'rebote' al cambiar el GIF
         snoopyGif.style.transform = 'scale(0.8)';
         snoopyGif.style.transition = 'transform 0.3s ease-out';
         setTimeout(() => {
@@ -69,11 +70,11 @@ boton.addEventListener('click', () => {
         fase2.classList.add('visible'); // La clase 'visible' tiene opacity: 1 en CSS
         
         // Paso 4: Reproducir la música
+        // La música DEBE activarse justo después de la interacción (clic) para funcionar en Chrome/Safari móvil.
         musica.play().catch(error => {
-            // Manejo de errores de autoplay de navegadores (es común)
-            console.log("No se pudo reproducir el audio automáticamente. Puede que el navegador lo haya bloqueado. ", error);
+            console.log("No se pudo reproducir el audio automáticamente. ", error);
+            // Esto es un error normal cuando los navegadores bloquean el audio.
         });
 
     }, 500); // 500ms para una transición suave
-
-});
+}
